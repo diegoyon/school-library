@@ -1,14 +1,12 @@
-require './person.rb'
+require './person'
 
 class Teacher < Person
-  def initialize (name = "Unknown", age, specialization)
+  def initialize(age, specialization, name = 'Unknown')
     super(name, age)
     @specialization = specialization
   end
 
   def can_use_services?
-    return true
+    true
   end
 end
-
-diego = Teacher.new('Diego', 10, 'math')

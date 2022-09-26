@@ -27,9 +27,3 @@ class Person
   end
 end
 
-diego = Person.new('Diego', 16)
-p diego.name
-p diego.age
-
-
-p diego.can_use_services?

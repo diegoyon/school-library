@@ -24,3 +24,14 @@ class Person < Nameable
     @age >= 18
   end
 end
+
+require './capitalize_decorator.rb'
+require './trimmer_decorator.rb'
+person = Person.new(age:22, name: 'maximilianus')
+p person.correct_name
+
+capitalizedPerson = CapitalizeDecorator.new(person)
+p capitalizedPerson.correct_name
+
+capitalizedTrimmedPerson = TrimmerDecorator.new(capitalizedPerson)
+p capitalizedTrimmedPerson.correct_name

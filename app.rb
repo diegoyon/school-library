@@ -101,34 +101,39 @@ class App
     print 'Please choose an option by entering a number: '
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def run # rubocop:disable Metrics/MethodLength
+  def cases1(input)
+    case input
+    when 1
+      list_books
+    when 2
+      list_people
+    when 3
+      create_person
+    end
+  end
+
+  def cases2(input)
+    case input
+    when 4
+      create_book
+    when 5
+      create_rental
+    when 6
+      list_rentals_of_person
+    when 7
+      puts 'Thank you for using this app!'
+    end
+  end
+
+  def run
     input = 0
     while input != 7
       options
       input = gets.chomp.to_i
-
-      case input.to_i
-      when 1
-        list_books
-      when 2
-        list_people
-      when 3
-        create_person
-      when 4
-        create_book
-      when 5
-        create_rental
-      when 6
-        list_rentals_of_person
-      when 7
-        puts 'Thank you for using this app!'
-      else
-        puts 'Wrong Input'
-      end
+      cases1(input)
+      cases2(input)
       puts ''
     end
     puts ''
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 end

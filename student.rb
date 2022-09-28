@@ -22,7 +22,17 @@ class Student < Person
   end
 end
 
+require './classroom'
+
 diego = Student.new(classroom: 5, age: 10)
 p diego
 p diego.play_hooky
 p diego.can_use_services?
+p diego.classroom
+math = Classroom.new('math')
+p math
+math.add_student(diego)
+p '---'
+p math
+p '-----'
+p diego

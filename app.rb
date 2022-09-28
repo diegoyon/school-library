@@ -22,13 +22,7 @@ class App
     end
   end
 
-  def create_person # rubocop:disable Metrics/MethodLength
-    print 'Do you want to create a student(1) or a teacher(2)? [Input the number]: '
-    student_or_teacher = gets.chomp.to_i
-    print 'Age: '
-    age = gets.chomp.to_i
-    print 'Name: '
-    name = gets.chomp
+  def create_person_helper(student_or_teacher, age, name)
     case student_or_teacher
     when 1
       print 'Has parent permission? [Y/N]: '
@@ -43,6 +37,18 @@ class App
       new_teacher = Teacher.new(specialization: specialization, age: age, name: name)
       @people.push(new_teacher)
     end
+  end
+
+  def create_person
+    print 'Do you want to create a student(1) or a teacher(2)? [Input the number]: '
+    student_or_teacher = gets.chomp.to_i
+    print 'Age: '
+    age = gets.chomp.to_i
+    print 'Name: '
+    name = gets.chomp
+
+    create_person_helper(student_or_teacher, age, name)
+
     puts 'Person created successfully'
   end
 

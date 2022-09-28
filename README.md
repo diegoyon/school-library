@@ -8,9 +8,6 @@
 
 - Ruby
 
-## Live Demo
-
-[School Library](https:/)
 
 ## Getting Started
 

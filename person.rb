@@ -10,6 +10,7 @@ class Person < Nameable
     @age = age
     @parent_permission = parent_permission
     @rentals = []
+    @id = rand(1..1000)
   end
 
   def can_use_services?
@@ -27,14 +28,14 @@ class Person < Nameable
   end
 end
 
-require './capitalize_decorator'
-require './trimmer_decorator'
+# require './capitalize_decorator'
+# require './trimmer_decorator'
 
-person = Person.new(age: 22, name: 'maximilianus')
-p person.correct_name
+# person = Person.new(age: 22, name: 'maximilianus')
+# p person.correct_name
 
-capitalized_person = CapitalizeDecorator.new(person)
-p capitalized_person.correct_name
+# capitalized_person = CapitalizeDecorator.new(person)
+# p capitalized_person.correct_name
 
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-p capitalized_trimmed_person.correct_name
+# capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
+# p capitalized_trimmed_person.correct_name

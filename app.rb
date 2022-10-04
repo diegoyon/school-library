@@ -2,9 +2,11 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
-require 'json'
+require './save_load'
 
 class App
+  include SaveLoad
+
   def initialize
     @books = []
     @people = []
@@ -143,56 +145,5 @@ class App
       puts ''
     end
     puts ''
-  end
-
-  def save_data
-    File.write("books.json", "")
-    @books.each do |book|
-      json = JSON.generate({title: book.title, author: book.author})
-      File.write('books.json', json +"\n", mode:"a")
-    end
-
-    File.write("people.json", "")
-    @people.each do |person|
-      json = ""
-      if person.is_a?(Student)
-        json = JSON.generate({type: person.class, id: person.id, name: person.name, age: person.age, parent_permission: person.parent_permission})
-      else
-        json = JSON.generate({type: person.class, id: person.id, name: person.name, age: person.age, specialization: person.specialization})
-      end
-      File.write('people.json', json +"\n", mode:"a")
-    end
-
-    File.write("rentals.json", "")
-    @rentals.each do |rental|
-      json = JSON.generate({date: rental.date, person: @people.index(rental.person), book: @books.index(rental.book)})
-      File.write('rentals.json', json +"\n", mode:"a")
-    end
-  end
-
-  def load_data
-    
-    File.foreach("books.json"){
-      |line| element = JSON.parse(line)
-      new_book = Book.new(element["title"], element["author"])
-      @books.push(new_book)
-    } if File.exists?("books.json")
-    
-    File.foreach("people.json"){
-      |line| element = JSON.parse(line)
-      if element["type"] == 'Student'
-        new_student = Student.new(id: element["id"], classroom: "Unknown", age: element["age"], name: element["name"], parent_permission: element["parent_permission"])
-        @people.push(new_student)
-      else
-        new_teacher = Teacher.new(id: element["id"], age: element["age"], specialization: element["specialization"], name: element["name"])
-        @people.push(new_teacher)
-      end
-    } if File.exists?("people.json")
-
-    File.foreach("rentals.json"){
-      |line| element = JSON.parse(line)
-      new_rental = Rental.new(element["date"], @people[element["person"]], @books[element["book"]])
-      @rentals.push(new_rental)
-    } if File.exists?("rentals.json")
   end
 end

@@ -3,11 +3,12 @@ require './person'
 class Student < Person
   attr_reader :classroom
 
-  def initialize(classroom:, age:, name: 'Unknown', parent_permission: true)
+  def initialize(classroom:, age:, name: 'Unknown', parent_permission: true, id: rand(1..1000))
     super(
       name: name,
       age: age,
-      parent_permission: parent_permission
+      parent_permission: parent_permission,
+      id: id
     )
     @classroom = classroom
   end

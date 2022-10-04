@@ -2,8 +2,11 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
+require './save_load'
 
 class App
+  include SaveLoad
+
   def initialize
     @books = []
     @people = []
@@ -128,6 +131,7 @@ class App
       list_rentals_of_person
     when 7
       puts 'Thank you for using this app!'
+      save_data
     end
   end
 

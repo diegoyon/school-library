@@ -151,6 +151,17 @@ class App
       json = JSON.generate({title: book.title, author: book.author})
       File.write('books.json', json +"\n", mode:"a")
     end
+
+    File.write("people.json", "")
+    @people.each do |person|
+      json = ""
+      if person.is_a?(Student)
+        json = JSON.generate({type: person.class, id: person.id, name: person.name, age: person.age, parent_permission: person.parent_permission})
+      else
+        json = JSON.generate({type: person.class, id: person.id, name: person.name, age: person.age, specialization: person.specialization})
+      end
+      File.write('people.json', json +"\n", mode:"a")
+    end
   end
 
   def load_data
@@ -161,6 +172,15 @@ class App
       @books.push(new_book)
     } if File.exists?("books.json")
     
-    
+    File.foreach("people.json"){
+      |line| element = JSON.parse(line)
+      if element["type"] == 'Student'
+        new_student = Student.new(id: element["id"], classroom: "Unknown", age: element["age"], name: element["name"], parent_permission: element["parent_permission"])
+        @people.push(new_student)
+      else
+        new_teacher = Teacher.new(id: element["id"], age: element["age"], specialization: element["specialization"], name: element["name"])
+        @people.push(new_teacher)
+      end
+    } if File.exists?("people.json")
   end
 end

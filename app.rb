@@ -162,6 +162,12 @@ class App
       end
       File.write('people.json', json +"\n", mode:"a")
     end
+
+    File.write("rentals.json", "")
+    @rentals.each do |rental|
+      json = JSON.generate({date: rental.date, person: @people.index(rental.person), book: @books.index(rental.book)})
+      File.write('rentals.json', json +"\n", mode:"a")
+    end
   end
 
   def load_data
@@ -182,5 +188,11 @@ class App
         @people.push(new_teacher)
       end
     } if File.exists?("people.json")
+
+    File.foreach("rentals.json"){
+      |line| element = JSON.parse(line)
+      new_rental = Rental.new(element["date"], @people[element["person"]], @books[element["book"]])
+      @rentals.push(new_rental)
+    } if File.exists?("rentals.json")
   end
 end

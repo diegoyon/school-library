@@ -2,6 +2,7 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
+require 'json'
 
 class App
   def initialize
@@ -128,6 +129,7 @@ class App
       list_rentals_of_person
     when 7
       puts 'Thank you for using this app!'
+      save_data
     end
   end
 
@@ -141,5 +143,24 @@ class App
       puts ''
     end
     puts ''
+  end
+
+  def save_data
+    File.write("books.json", "")
+    @books.each do |book|
+      json = JSON.generate({title: book.title, author: book.author})
+      File.write('books.json', json +"\n", mode:"a")
+    end
+  end
+
+  def load_data
+    
+    File.foreach("books.json"){
+      |line| element = JSON.parse(line)
+      new_book = Book.new(element["title"], element["author"])
+      @books.push(new_book)
+    } if File.exists?("books.json")
+    
+    
   end
 end

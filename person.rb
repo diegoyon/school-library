@@ -1,4 +1,5 @@
 require './nameable'
+# require './capitalize_decorator'
 
 class Person < Nameable
   attr_reader :id, :rentals, :parent_permission

@@ -11,6 +11,3 @@ class Classroom
     student.classroom = self
   end
 end
-
-math = Classroom.new('math')
-p math

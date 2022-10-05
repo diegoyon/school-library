@@ -4,6 +4,9 @@ AllCops:
     - "Guardfile"
     - "Rakefile"
     - "node_modules/**/*"
+    - "Gemfile"
+    - "bin/rspec"
+    - "spec/spec_helper.rb"
 
   DisplayCopNames: true
 
